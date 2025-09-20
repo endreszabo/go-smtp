@@ -1797,4 +1797,10 @@ func TestServerNegativeDynamicDomainGreeted(t *testing.T) {
 	if !strings.HasPrefix(scanner.Text(), "503 bad sequence of commands") {
 		t.Fatal("Invalid HELO response:", scanner.Text())
 	}
+	io.WriteString(c, "QUIT\r\n")
+
+	scanner.Scan()
+	if !strings.HasPrefix(scanner.Text(), "221 OK") {
+		t.Fatal("Invalid HELO response:", scanner.Text())
+	}
 }
